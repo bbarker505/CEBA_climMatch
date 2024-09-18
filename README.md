@@ -29,7 +29,7 @@ The follwing packages must be intalled:
 - tidyterra
 - Euclimatch
 - GA
-- cowplow
+- cowplot
 
 # Instructions
 
