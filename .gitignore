@@ -1,5 +1,5 @@
 # Directories 
 
-**/data/weekly/
-**/raster_outputs/
+/data/weekly/*
+/raster_outputs/*
 .Rproj.user
