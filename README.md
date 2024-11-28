@@ -6,7 +6,7 @@ Questions? 📧 bbarker505@gmail.com or brittany.barker@oregonstate.edu
 
 # Purpose
 
-The code and files in this repository reproduce the outputs presented in a climate matching modeling study of *Ceratapion basicorne* (manuscript in review). 
+The code and files in this repository reproduce the outputs presented in a climate matching modeling study of *Ceratapion basicorne* (Barker et al. 2025 In Press). 
 
 # Abstract
 
@@ -36,7 +36,7 @@ The follwing packages must be intalled:
 
 (1) Clone the repository. Don't move or delete any subfolders or data. 
 (2) Download the climate data for the western U.S. ("all_away_dat.csv") from Zenodo: https://zenodo.org/records/13770391.  
-(3) Place "all_away_dat.csv" in the following directory of the repository: /data/data/weekly/away/  
+(3) Place "all_away_dat.csv" in the following directory of the repository: /data/weekly/away/  
 (4) Open the R project ("CEBA_climMatch.Rproj") in RStudio/Posit.   
 (5) Open R script named "CEBA_climMatch.R" in the "script" subfolder.  
 (6) Install any necessary packages as listed above.    
@@ -44,9 +44,9 @@ The follwing packages must be intalled:
 
 # Acknowledgements
 
-This work was funded by the U.S. Department of Defense Strategic Environmental Research and Development Program (U.S. Army Corps of Engineers, contract no. RC23-3611) and the USDA National Institute of Food and Agriculture (NIFA) Agriculture and Food Research Initiative (AFRI) grant no. 2022-68013-37138.
+This work was funded by the U.S. Department of Defense Strategic Environmental Research and Development Program (U.S. Army Corps of Engineers, contract no. RC23-3611).
 
 # References
 
-Barker, B. S. 2024. Climate matching models for *Ceratapion basicorne* (Coleoptera: Apionidae), a biocontrol agent of yellow starthistle. In review.
+Barker, B. S. 2025. Climate matching models for *Ceratapion basicorne* (Coleoptera: Apionidae), a biocontrol agent of yellow starthistle. Journal of Economic Entomology. In Press.
 
