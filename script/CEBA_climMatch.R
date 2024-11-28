@@ -1,21 +1,26 @@
 # R script that uses different methods to do climate matching for C. basicorne
 # Author: Brittany Barker, Oregon IPM Center, Oregon State University
-# Associated publication: "Climate matching models for Ceratapion basicorne 
-# (Coleoptera: Apionidae), a biocontrol agent of yellow starthistle"
+# Associated publication: Barker (2025) Climate matching models for Ceratapion 
+# basicorne (Coleoptera: Apionidae), a biocontrol agent of yellow starthistle.
+# Journal of Economic Entomology.
+
+# Two climate matching models are applied:
 # Method 1: CLIMEX approach (regional)
-# Method 2: Climatch algorithm using the "climatchR" package
+# Method 2: Climatch algorithm using the "Euclimatch" package
 
 # Load packages
 library(here)
-library(tidyverse)
+library(tidyverse) # Data wrangling
 library(ggspatial) # Spatial options for ggplot2
 library(rnaturalearth) # Polygons for countries/states
 library(sf) # Working with spatial features
 library(terra) # Working with rasters
 library(tidyterra) # Convert rasters to data frames
-library(Euclimatch) # Climatch
+library(Euclimatch) # Climatch model
 library(GA) # Color palettes
 library(cowplot) # Combining plots
+
+### Set-up ----
 
 #### Plot theme ----
 
@@ -35,6 +40,10 @@ mytheme <- theme(legend.text = element_text(size = 14),
                  legend.key.width  =  unit(1.75, "cm"),
                  legend.title = element_text(size = 18, hjust = 0, vjust = 0.95, face = "bold"))
 
+# Theme for yellow starthistle (YST) plots
+yst_theme <- mytheme + 
+  theme(plot.margin = margin(t = 0.25, r = 0.05, b = 0.25, l = -1, unit = "cm"),
+        plot.background = element_rect(colour = NA, fill = NA))
 
 #### Functions ----
 
@@ -131,6 +140,23 @@ Climatch_base_map <- function(v) {
     mytheme
 }
 
+# Function to create county-level detection maps for YST
+YST_base_plot <- function(x) {
+  ggplot() +
+    geom_sf(data = yst, color = "gray70", fill = "gray95", linewidth = 0.25) +
+    geom_sf(data = x, aes(fill = Status)) +
+    geom_sf(data = x, fill = NA, color = "gray30", linewidth = 0.25) +
+    geom_sf(data = na_states, color = "black", fill = NA, linewidth = 0.5) +
+    annotation_spatial_hline(intercept = kilkis[2], crs = 4326, color = "white", size = 1.25, alpha=0.85) +
+    annotation_spatial_hline(intercept = kilkis[2], crs = 4326, color = "black", size = 0.5, linetype="dashed") +
+    scale_fill_manual(values = c("gold","gray70")) +
+    labs(fill = "YST") +
+    yst_theme 
+}
+
+### Climate matching models ----
+
+#### (1) CLIMEX  approach ----
 #### Home location and spatial features ----
 
 # Home climate (Kilkis)
@@ -145,32 +171,32 @@ na_states <- ne_states(returnclass = "sf") %>%
 na_states <- st_crop(na_states, ext(-125.0, -102, 31.1892, 49.4))
 na_states_l <- st_cast(na_states, "MULTILINESTRING")
 
-#### Climate data ----
+##### Climate data ----
 
 # Western US (away) climate
 # Daymet data are 30-year weekly averages (1991-2020) at 1-km2 resolution
-# Data were exported to CSV format from daily Daymet gridded data at 1km2 resolution
-# Processing Daymet rasters each time was too computationally intensive
-# Data are too large to store for free at GitHub
-# Column names are variable plus week number
-# (e.g., "tmin01" = minimum temperature of week 1)
-# However, the first, column, "ppt_ann" is total annual precipitation
-away_clim <- read.csv(here("data", "weekly", "away", "all_away_dat.csv"))
+# Get rasters for all weekly climate layers (tmin, tmax, ppt, sm)
+away_clim_r <- rast(
+  list.files(here("data", "weekly", "away"), pattern = ".tif$", full.names = TRUE))
+
+# Convert raster to a data frame and select desired columns
+away_clim <- as.data.frame(away_clim_r, xy=TRUE)
 
 # X and Y coords for away
-away_xy <- select(away_clim, x, y)
+away_xy <- select(away_clim, x, y) 
 
 # Remove XY coords for analysis
 away_clim <- select(away_clim, -x, -y)
 
+# Remove large rasters from memory (no longer needed)
+rm(away_clim_r)
+
 # Home climate
-# E-OBS data that have been downscaled to a 1-km2 resolution
+# Extracted from E-OBS data that had been downscaled to a 1-km2 resolution
 home_clim <- read.csv(here("data", "weekly", "home", "kilkis.csv"))
 home_clim <- home_clim[names(away_clim)]
 
-#### (1) CLIMEX  approach  ----
-
-### (1a) Calculate indices ----
+##### Calculate indices ----
 # Uses equations from the CLIMEX manual for the regional climate matching model. 
 # See Appendix 1 of the JEE publication for details.
 
@@ -199,7 +225,7 @@ all_ind <-  all_ind %>%
   mutate(cmi = (tempi^wt * rtoti^w3 * smi^w4)^(1/(wt + w3 + w4))) %>%
   select(x, y, everything())
 
-# CMI plot
+##### Indices plots ----
 
 # Create maps for all indices
 indices <- c("tempi", "smi", "rtoti", "cmi")
@@ -208,7 +234,7 @@ indices <- c("tempi", "smi", "rtoti", "cmi")
 maxvals <- data.frame(
   rbind(
     lapply(1:length(indices) + 2, function(i) {
-      m <- plyr::round_any(max(all_ind[,i]), 0.1, ceiling)
+      m <- plyr::round_any(max(all_ind[,i], na.rm = TRUE), 0.1, ceiling)
     }))
 )
 
@@ -220,8 +246,6 @@ cutoff <- 0.6
 all_ind_l <- all_ind %>%
   pivot_longer(cols = indices) %>%
   filter(value >= cutoff)
-
-# (1b) Indices plots ----
 
 # Apply plotting function to climate matching model outputs
 # Composite match index
@@ -266,12 +290,14 @@ map(1:length(indices), function(i) {
          width = 7, height = 7, units = c('in'), dpi = 300)
 })
 
-#### (2) Euclimatch ----
-# An interface for performing climate matching using the Euclidean "Climatch" algorithm. 
-# Functions provide a vector of climatch scores (0-10) for each location (i.e., grid cell) 
-# within the recipient region, the percent of climatch scores >= a threshold value, 
-# and mean climatch score. See: https://cran.r-project.org/web/packages/Euclimatch/index.html.
+#### (2) Euclimatch model ----
+# Uses "Euclimatch" package: an interface for performing climate matching using the 
+# Euclidean "Climatch" algorithm. Functions provide a vector of Climatch scores (0-10) 
+# for each location (i.e., grid cell) within the recipient region, the percent of 
+# Climatch scores >= a threshold value, and mean Climatch score. 
+# See: https://cran.r-project.org/web/packages/Euclimatch/index.html.
 
+##### Climate data ----
 # Bioclim variables used in model
 # BIO5 = Max Temperature of Warmest Month
 # BIO6 = Min Temperature of Coldest Month
@@ -280,34 +306,40 @@ map(1:length(indices), function(i) {
 # BIO30 = Lowest weekly moisture index
 
 # Get rasters for all bioclim variables
-home_bio <- rast(
-  list.files(here("data", "bioclim", "home"), pattern = ".tif$", full.names = TRUE))
-
-away_bio <- rast(
-  list.files(here("data", "bioclim", "away"),pattern = ".tif$", full.names = TRUE))
+away_bio_r <- rast(
+  list.files(here("data", "bioclim", "away"), pattern = ".tif$", full.names = TRUE))
+away_prj <- crs(away_bio_r) # For plots, below
+away_templ <- away_bio_r[[1]] # For conversion of results to rasters, below
 
 # Remove exponential notation and increase decimal lengths in R
 options("scipen"=100, "digits"=10)
 
 # Convert raster to a data frame and select desired columns
-away_bio_df <- as.data.frame(away_bio, xy=TRUE)
-away_xy2 <- select(away_bio_df, x, y) # Need coordinates but then remove below
-away_bio_df <- away_bio_df %>%
-  select(bio5, bio6, bio12, bio29, bio30, -x, -y)
+away_bio <- as.data.frame(away_bio_r, xy=TRUE)
 
-# Extract home (Kilkis)
-home_extr <- extract(home_bio, matrix(kilkis, ncol=2)) %>%
-  select(bio5, bio6, bio12, bio29, bio30)
+# XY coordinates for away
+away_xy2 <- select(away_bio, x, y) 
+
+# Remove XY coords for analysis
+away_bio <- select(away_bio, bio5, bio6, bio12, bio29, bio30, -x, -y)
+
+# Remove large raster (no longer needed)
+rm(away_bio_r)
+
+# Home climate
+# Extracted from bioclim vars derived from E-OBS data that had been 
+# downscaled to a 1-km2 resolution
+home_bio <- read.csv(here("data", "bioclim", "home", "kilkis.csv"))
 
 # Calculate global variance of recipient climate data (all columns)
-all_var <- away_bio_df %>% 
+all_var <- away_bio %>% 
   summarise_all(list(var), na.rm = TRUE)
 globvar <- unname(unlist(c(all_var)))
 
-### (2a) Run Climatch ----
+##### Run Climatch ----
 matchout <- climatch_vec(
-  recipient = away_clim, 
-  source = home_clim,
+  recipient = away_bio, 
+  source = home_bio,
   globvar = globvar)
 
 # Conduct analysis for individual bioclim variables and all variables
@@ -317,22 +349,22 @@ match_outs <- map(1:length(vars), function(i) {
   
   if (any(vars[[i]] == "all")) {
     # Calculate global variance of recipient climate data 
-    globvar <- away_bio_df %>% 
+    globvar <- away_bio %>% 
       summarise_all(list(var), na.rm = TRUE)
     # Climatch algorithm
     matchout <- climatch_vec(
-      recipient = away_bio_df, 
+      recipient = away_bio, 
       source = home_extr,
       globvar = unlist(globvar))
   } else {
     # Calculate global variance of recipient climate data 
-    globvar <- away_bio_df %>% 
+    globvar <- away_bio %>% 
       select(contains(vars[[i]])) %>%
       summarise_all(list(var), na.rm = TRUE)
     # Climatch algorithm
     matchout <- climatch_vec(
-      recipient = select(away_bio_df, contains(vars[[i]])), 
-      source = select(home_extr, contains(vars[[i]])),
+      recipient = select(away_bio, contains(vars[[i]])), 
+      source = select(home_bio, contains(vars[[i]])),
       globvar = unname(unlist(c(globvar))))
   }
   
@@ -365,13 +397,13 @@ match_outs <- map(1:length(vars), function(i) {
 names(match_outs) <- c("all", "temp", "ppt",  "sm")
 
 # Combine into a single data frame
-cutoff2 <- 0.1
+cutoff2 <- 0.1 # Don't include 0 values
 match_outs_df <- bind_rows(match_outs, .id = "variable") %>%
   filter(complete.cases(.)) %>%
   filter(value >= cutoff2) %>%
   mutate(Climatch = round(value, 2))
 
-### (2b) Climatch plots ----
+##### Climatch plots ----
 
 # All variables
 allMatch_plot <- Climatch_base_map("all") +
@@ -419,16 +451,16 @@ map(1:length(flnams), function(i) {
          width = 7, height = 7, units = c('in'), dpi = 300)
 })
 
-### (3) Combine all plots ----
+### Combine all plots ----
 
-### (3a) All variables ----
+#### All variables ----
 # Combine plots into one plot
 match_1 <- plot_grid(tempMatch_plot, rtotMatch_plot)
 match_2 <- plot_grid(smMatch_plot, allMatch_plot)
 match_all <- plot_grid(match_1, match_2, nrow = 2) 
-ggsave(match_all, 
-       filename = here("plots", "Climatch", paste0("Climatch_4grid_", dat, ".png")), 
-       width = 12, height = 8, units = c('in'), dpi = 300, bg = "white")
+#ggsave(match_all, 
+#       filename = here("plots", "Climatch", paste0("Climatch_4grid_", dat, ".png")), 
+#       width = 12, height = 8, units = c('in'), dpi = 300, bg = "white")
 
 # Combine CMI plot and Climatch plot w/ all variables
 final_all <- plot_grid(
@@ -445,19 +477,19 @@ ggsave(final_all,
        filename = here("plots", 
                        paste0("CMI_Climatch_final_", dat, ".png")), 
        width = 11, height = 6, units = c('in'), dpi = 300, bg = "white")
-# Plot for publication (Figure 1)
+# Plot for publication (Figure 2)
 # ggsave(final_all, 
 #        filename = here("plots", paste0("Figure2.tif")), 
 #        width = 11, height = 6, units = c('in'), dpi = 300, bg = "white")
 
-### (3b) YST distribution + threshold maps ----
+#### YST distribution + threshold maps ----
 
 # These maps show the distribution of YST in relation to "matched" areas,
-# defined as those that have CMI or Climatch values over a certain threshold.
+# defined as those that have CMI or Climatch values above a certain threshold.
 
 # County-level detections for YST (EDDMapS)
 yst <- st_read(here("data", "YST_counties", "YST_counties_9-19-24.shp")) %>%
-  st_transform(crs = crs(cmi_thr)) %>% 
+  st_transform(crs = away_prj) %>% 
   mutate(Status = factor(case_when(present == "Present" ~ "Detected",
                                    present == "Absent" ~ "Undetected"))) %>% 
   select(Status, geometry) %>% 
@@ -468,7 +500,7 @@ yst <- st_read(here("data", "YST_counties", "YST_counties_9-19-24.shp")) %>%
 cmi_thr <-  all_ind %>% 
   mutate(matched = ifelse(cmi >= 0.6, 1, NA)) %>% 
   select(x, y, matched) %>% 
-  rast(crs = crs(away_bio)) %>% 
+  rast(crs = away_prj) %>% 
   as.polygons() %>% 
   st_as_sf() 
 cmi_thr$matched <- factor(cmi_thr$matched)
@@ -478,7 +510,7 @@ clim_thr <-  match_outs_df %>%
   filter(variable == "all") %>% 
   mutate(matched = ifelse(Climatch >= 0.1, 1, 0)) %>% 
   select(x, y, matched) %>% 
-  rast(crs = crs(away_bio)) %>% 
+  rast(crs = away_prj) %>% 
   as.polygons() %>% 
   st_as_sf() 
 
@@ -496,27 +528,9 @@ yst_clim <- st_intersection(yst, clim_thr) %>%
 #na_states_yst <- filter(na_states, adm0_a3 == "USA")
 #cmi_thr2 <- cmi_thr[na_states_yst, , op = st_contains]
 
-# Theme for YST plots
-yst_theme <- mytheme + 
-  theme(plot.margin = margin(t = 0.25, r = 0.05, b = 0.25, l = -1, unit = "cm"),
-        plot.background = element_rect(colour = NA, fill = NA))
-
-yst_base_plot <- function(x) {
-  ggplot() +
-    geom_sf(data = yst, color = "gray70", fill = "gray95", linewidth = 0.25) +
-    geom_sf(data = x, aes(fill = Status)) +
-    geom_sf(data = x, fill = NA, color = "gray30", linewidth = 0.25) +
-    geom_sf(data = na_states, color = "black", fill = NA, linewidth = 0.5) +
-    annotation_spatial_hline(intercept = kilkis[2], crs = 4326, color = "white", size = 1.25, alpha=0.85) +
-    annotation_spatial_hline(intercept = kilkis[2], crs = 4326, color = "black", size = 0.5, linetype="dashed") +
-    scale_fill_manual(values = c("gold","gray70")) +
-    labs(fill = "YST") +
-    yst_theme 
-}
-
 # Make plots
-cmi_yst <- yst_base_plot(yst_cmi)
-clim_yst <- yst_base_plot(yst_clim)
+cmi_yst <- YST_base_plot(yst_cmi)
+clim_yst <- YST_base_plot(yst_clim)
 
 # Adjust some theme elements for CMI and Climatch plots
 cmi_plot2 <- cmi_plot + 
@@ -544,13 +558,13 @@ ggsave(final_all4,
        filename = here("plots", 
                        paste0("CMI_Climatch_thres_final_", dat, ".png")), 
        width = 12, height = 13, units = c('in'), dpi = 300, bg = "white")
-# Publication
-ggsave(final_all4, 
-       filename = here("plots", "Figure2.tiff"), 
-       width = 12, height = 13, units = c('in'), dpi = 300, bg = "white")
+# Figure for publication (Fig. 2)
+# ggsave(final_all4, 
+#        filename = here("plots", "Figure2.tiff"), 
+#        width = 12, height = 13, units = c('in'), dpi = 300, bg = "white")
 
 
-#### (3c) Single variables ----
+#### Single variables ----
 # Combine CLIMEX-based plots and Climatch plots (full output)
 mytheme2 <- theme(legend.position = "right",
                   legend.key.height  =  unit(1.25, "cm"),
@@ -591,18 +605,18 @@ final_sm <- plot_grid(smi_plot + ggtitle("(C) Soil moisture") + mytheme2,
 #        filename = here("plots", paste0("SMIsm_Climatch_final_", dat, ".png")), 
 #        width = 12, height = 6, units = c('in'), dpi = 300, bg = "white")
 
-# Combine all 6 plots for publication
+# Combine all 6 plots
 final_3fact <- plot_grid(final_temp, final_rtot, final_sm, nrow = 3) +
   theme(plot.margin = margin(t = 1, r =1, b = 1, l = 1, unit = "pt"))
 ggsave(final_3fact, 
        filename = here("plots", paste0("ThreeFactors_final_", dat, ".png")), 
        width = 10, height = 12, units = c('in'), dpi = 300, bg = "white")
-# TIF file for publication
-ggsave(final_3fact,
-       filename = here("plots", paste0("Figure3.tiff")),
-       width = 10.5, height = 12, units = c('in'), dpi = 300, bg = "white")
+# TIF file for publication (Fig. 3)
+# ggsave(final_3fact,
+#        filename = here("plots", paste0("Figure3.tiff")),
+#        width = 10.5, height = 12, units = c('in'), dpi = 300, bg = "white")
 
-# (5) Convert results to rasters ----
+### Convert results to rasters ----
 
 # Template
 template <- rast(extent = ext(away_bio), ncol=ncol(away_bio), nrow = nrow(away_bio))
@@ -614,7 +628,7 @@ inds <- names(select(all_ind, -x, -y))
 for (ind in inds) {
   # Rasterize
   df <- select(all_ind, x, y, ind)
-  r <- rast(df, extent = ext(template))
+  r <- rast(df, extent = ext(away_templ))
   # Save raster
   writeRaster(
     r, filename = here("raster_outputs", "CLIMEX_custom",
@@ -626,7 +640,7 @@ for (i in 1:length(match_outs)) {
   nam <- names(match_outs[i])
   df <- match_outs[[i]] %>% 
     select(-Climatch_fact)
-  r <- rast(df, extent = ext(template))
+  r <- rast(df, extent = ext(away_templ))
   # Save raster
   writeRaster(
     r, filename = here("raster_outputs", "Climatch",
