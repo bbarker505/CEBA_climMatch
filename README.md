@@ -14,7 +14,7 @@ The code and files in this repository reproduce the outputs presented in a clima
 
 # Inputs and outputs
 
-Model inputs are climate data in the "data" subfolder. However, a very large data file must be downloaded from Zenodo because it's too big for GitHub (see instructions below). The CLIMEX-based model used weekly climate data whereas the Climatch model used six bioclimatic variables. For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Weekly data were converted from raster to CSV format prior to modeling to reduce computational load. Conversely, bioclim data are still in raster (GeoTIFF) format. Details about the climatic data and variables used in models can be found in the publication for this study.
+Model inputs are climate data in the "data" subfolder. CLIMEX-based model uses weekly climate data whereas the Climatch model uses six bioclimatic variables. For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Details about the climatic data and variables used in models can be found in the publication for this study.
 
 Model outputs are static image files (.PNG) and rasters (GeoTIFF) that are saved to the "plots" and "raster_outputs" subfolders, respectively. Outputs are further organized by model type ("CLIMEX_custom" vs. "Climatch"). 
 
@@ -34,13 +34,12 @@ The follwing packages must be intalled:
 
 # Instructions
 
-(1) Clone the repository. Don't move or delete any subfolders or data. 
-(2) Download the climate data for the western U.S. ("all_away_dat.csv") from Zenodo: https://zenodo.org/records/13770391.  
-(3) Place "all_away_dat.csv" in the following directory of the repository: /data/weekly/away/  
-(4) Open the R project ("CEBA_climMatch.Rproj") in RStudio/Posit.   
-(5) Open R script named "CEBA_climMatch.R" in the "script" subfolder.  
-(6) Install any necessary packages as listed above.    
-(7) Run the R script.
+(1) Clone the repository. Don't move or delete any subfolders or data.  
+(2) Open the R project ("CEBA_climMatch.Rproj") in RStudio/Posit.   
+(3) Open R script named "CEBA_climMatch.R" in the "script" subfolder.  
+(4) Install any necessary packages as listed above.    
+(5) Run the R script, which produces the two climate matching models and associated figures.  
+(6) (Optional) The "CEBA_localityMap_nativeRange.R" script produces a map of locality records for CEBA in Europe and western Asia.  
 
 # Acknowledgements
 
