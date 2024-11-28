@@ -14,7 +14,7 @@ The code and files in this repository produce two climate matching models for *C
 
 # Inputs and outputs
 
-Model inputs are climate data in the "data" subfolder. The CLIMEX-based model uses weekly climate data whereas the Climatch model uses six bioclimatic variables. For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Details about the climatic data and variables used in models can be found in the publication for this study.
+Model inputs are climate data in the "data" subfolder. The CLIMEX-based model uses weekly climate data whereas the Climatch model uses six bioclimatic variables. For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Data for the 'home' location were extracted from rasters for Europe whereas data for the 'away' locations (western U.S.) are in raster format. Details about the climatic data and variables used in models can be found in the publication for this study.
 
 Model outputs are static image files (.PNG) and rasters (GeoTIFF) that are saved to the "plots" and "raster_outputs" subfolders, respectively. Outputs are further organized by model type ("CLIMEX_custom" vs. "Climatch"). 
 
