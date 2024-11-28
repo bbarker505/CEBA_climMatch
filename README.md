@@ -14,12 +14,15 @@ The code and files in this repository produce two climate matching models for *C
 
 # Inputs and outputs
 
-Data inputs for the study ("data" subfolder) include:  
-(1) Climate data for modeling: the CLIMEX-based model uses weekly climate data ("/data/weekly/*") whereas the Climatch model uses six bioclimatic variables ("/data/bioclim/*"). For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Data for the 'home' location were extracted from rasters for Europe whereas data for the 'away' locations (western U.S.) are in raster format. Details about the climatic data and variables used in models can be found in the publication for this study.  
-(2) Locality records: records for *C. basicorne* in Europe and western Asia ("/data/records/CEBA_all_records.xlsx") were derived from the literature, GBIF, and field studies. The "Estimated" column indicates whether coordinate information for the record were precise (Estimated = 0) or approximated from geographic information, such as a city name (Estimated = 1).  
-(3) County-level detections for yellow starthistle ("/data/YST_counties/YST_counties_9-19-24.shp") were estimated from GBIF and EDDMaPS data.  
+**Data inputs** for the study ("data" subfolder) include:  
 
-Model outputs are static image files (.PNG) and rasters (GeoTIFF) that are saved to the "plots" and "raster_outputs" subfolders, respectively. Outputs are further organized by model type ("CLIMEX_custom" vs. "Climatch"). 
+(1) Climate data for modeling: the CLIMEX-based model uses weekly climate data ("/data/weekly/*") whereas the Climatch model uses six bioclimatic variables ("/data/bioclim/*"). For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Data for the 'home' location were extracted from rasters for Europe whereas data for the 'away' locations (western U.S.) are in raster format. Details about the climatic data and variables used in models can be found in the publication for this study.
+
+(2) Locality records: records for *C. basicorne* in Europe and western Asia ("/data/records/CEBA_all_records.xlsx") were derived from the literature, GBIF, and field studies. The "Estimated" column indicates whether coordinate information for the record were precise (Estimated = 0) or approximated from geographic information, such as a city name (Estimated = 1).
+
+(3) County-level detections for yellow starthistle ("/data/YST_counties/YST_counties_9-19-24.shp") were estimated from GBIF and EDDMaPS data.
+
+**Model outputs** are static image files (.PNG) and rasters (GeoTIFF) that are saved to the "plots" and "raster_outputs" subfolders, respectively. Outputs are further organized by model type ("CLIMEX_custom" vs. "Climatch"). 
 
 # Required R packages
 
