@@ -20,7 +20,7 @@ Model outputs are static image files (.PNG) and rasters (GeoTIFF) that are saved
 
 # Required R packages
 
-The follwing packages must be intalled:
+The following packages must be intalled:
 - here
 - tidyverse
 - ggspatial
