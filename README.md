@@ -6,7 +6,7 @@ Questions? 📧 bbarker505@gmail.com or brittany.barker@oregonstate.edu
 
 # Purpose
 
-The code and files in this repository reproduce the outputs presented in a climate matching modeling study of *Ceratapion basicorne* (Barker et al. 2025 In Press). 
+The code and files in this repository produce two climate matching models for *Ceratapion basicorne* (Barker et al. 2025 In Press). 
 
 # Abstract
 
@@ -14,7 +14,7 @@ The code and files in this repository reproduce the outputs presented in a clima
 
 # Inputs and outputs
 
-Model inputs are climate data in the "data" subfolder. CLIMEX-based model uses weekly climate data whereas the Climatch model uses six bioclimatic variables. For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Details about the climatic data and variables used in models can be found in the publication for this study.
+Model inputs are climate data in the "data" subfolder. The CLIMEX-based model uses weekly climate data whereas the Climatch model uses six bioclimatic variables. For each model type, the data are split according to the 'home' (Kilkis, Greece) and 'away' (western U.S.) locations. Details about the climatic data and variables used in models can be found in the publication for this study.
 
 Model outputs are static image files (.PNG) and rasters (GeoTIFF) that are saved to the "plots" and "raster_outputs" subfolders, respectively. Outputs are further organized by model type ("CLIMEX_custom" vs. "Climatch"). 
 
@@ -39,7 +39,7 @@ The follwing packages must be intalled:
 (3) Open R script named "CEBA_climMatch.R" in the "script" subfolder.  
 (4) Install any necessary packages as listed above.    
 (5) Run the R script, which produces the two climate matching models and associated figures.  
-(6) (Optional) The "CEBA_localityMap_nativeRange.R" script produces a map of locality records for CEBA in Europe and western Asia.  
+(6) (Optional) The "CEBA_localityMap_nativeRange.R" script produces a map of locality records for CEBA.  
 
 # Acknowledgements
 
