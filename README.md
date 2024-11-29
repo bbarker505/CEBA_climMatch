@@ -26,7 +26,7 @@ The code and files in this repository produce two climate matching models for *C
 
 # Required R packages
 
-The following packages must be intalled:
+The following packages must be installed:
 - here
 - tidyverse
 - ggspatial
