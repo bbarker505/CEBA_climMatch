@@ -133,17 +133,7 @@ The R statistical software (version 4.3.2) was used to produce models.
 ### **Required R packages**
 
 The following packages must be installed:
-
--   `here`
--   `tidyverse`
--   `ggspatial`
--   `rnaturalearth`
--   `sf`
--   `terra`
--   `tidyterra`
--   `Euclimatch`
--   `GA`
--   `cowplot`
+`here, tidyverse, ggspatial, rnaturalearth, sf, terra, tidyterra, Euclimatch, GA, cowplot.`
 
 ### **Instructions**
 
