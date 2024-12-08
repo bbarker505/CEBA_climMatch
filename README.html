@@ -362,7 +362,8 @@ starthistle</strong></h1>
 <div id="purpose" class="section level2">
 <h2><strong>Purpose</strong></h2>
 <p>The code and files in this repository produce climate matching models
-for <em>Ceratapion basicorne</em> (Barker et al. 2025).</p>
+for <em>Ceratapion basicorne</em> for the western U.S. (Barker et
+al. 2025).</p>
 </div>
 <div id="abstract" class="section level2">
 <h2><strong>Abstract</strong></h2>
@@ -403,9 +404,9 @@ produced by models are saved here. Images produced by the CLIMEX-based
 model and Climatch models are saved to the <code>CLIMEX_custom</code>
 and <code>Climatch</code> folder, respectively.</p></li>
 <li><p><code>raster_outputs</code>: rasters (<code>.tif</code> files)
-produced by models. Rasters produced by the CLIMEX-based model and
-Climatch models are saved to the <code>CLIMEX_custom</code> and
-<code>Climatch</code> subfolder, respectively.</p></li>
+produced by models are saved here. Rasters produced by the CLIMEX-based
+model and Climatch models are saved to the <code>CLIMEX_custom</code>
+and <code>Climatch</code> subfolder, respectively.</p></li>
 <li><p><code>script</code>: running the R script
 <code>CEBA_climMatch.R</code> re-produces all models, figures, and
 rasters presented in the manuscript (see below).</p></li>
@@ -414,13 +415,13 @@ rasters presented in the manuscript (see below).</p></li>
 <div id="data" class="section level3">
 <h3><strong>Data</strong></h3>
 <p>Climate data for modeling: the CLIMEX-based model uses weekly climate
-data (<code>/data/weekly/</code>) whereas the Climatch model used six
+data (<code>/data/weekly/</code>) whereas the Climatch model uses six
 bioclimatic variables (<code>/data/bioclim/</code>). For each model
-type, the data are split according to the ‘home’ (Kilkis, Greece) and
-‘away’ (western U.S.) locations. Averages of climate for a 30-year
-period spanning <code>1991-2020</code> were derived from the Daymet and
-E-OBS datasets. In raster datasets, all locations in the western U.S.
-(extent:
+type, the data are split according to the ‘home’ location (Kilkis,
+Greece) and ‘away’ locations in the western U.S. Averages of climate for
+a 30-year period spanning <code>1991-2020</code> were derived from the
+Daymet and E-OBS datasets. In raster datasets, all locations in the
+western U.S. (extent:
 <code>xmin = -125.0024, xmax = -101.9945,ymin = 31.18652, ymax = 49.40551</code>)
 are at <code>1-km2</code> resolution and the coordinate reference system
 is WGS84 (EPSG:4326). Units are degrees Celsius for temperature (Tmin,
@@ -474,16 +475,18 @@ detected (present) or not (absent)].</p></li>
 </div>
 <div id="sharingaccess-information" class="section level2">
 <h2><strong>Sharing/Access information</strong></h2>
-<p>Data were derived from the following sources:<br />
-- <a href="https://daymet.ornl.gov/getdata">Daymet dataset for North
-America</a><br />
-- <a href="https://surfobs.climate.copernicus.eu">E-OBS dataset for
-Europe</a><br />
-- <a href="https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c">SiTHv2
-global soil moisture dataset</a><br />
-- <a href="https://www.eddmaps.org/">EDDMapS database</a><br />
-- <a href="https://www.gbif.org/">GBIF | Global Biodiversity Information
-Facility</a></p>
+<p>Data were derived from the following sources:</p>
+<ul>
+<li><p><a href="https://daymet.ornl.gov/getdata">Daymet dataset for
+North America</a></p></li>
+<li><p><a href="https://surfobs.climate.copernicus.eu">E-OBS dataset for
+Europe</a></p></li>
+<li><p><a href="https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c">SiTHv2
+global soil moisture dataset</a></p></li>
+<li><p><a href="https://www.eddmaps.org/">EDDMapS database</a></p></li>
+<li><p><a href="https://www.gbif.org/">GBIF | Global Biodiversity
+Information Facility</a></p></li>
+</ul>
 <p>Citations for datasets can be found in the publication (Barker et al.
 2025)</p>
 </div>
@@ -493,17 +496,19 @@ Facility</a></p>
 models.</p>
 <div id="required-r-packages" class="section level3">
 <h3><strong>Required R packages</strong></h3>
-<p>The following packages must be installed:<br />
-- <code>here</code><br />
-- <code>tidyverse</code><br />
-- <code>ggspatial</code><br />
-- <code>rnaturalearth</code><br />
-- <code>sf</code><br />
-- <code>terra</code><br />
-- <code>tidyterra</code><br />
-- <code>Euclimatch</code><br />
-- <code>GA</code><br />
-- <code>cowplot</code></p>
+<p>The following packages must be installed:</p>
+<ul>
+<li><p><code>here</code></p></li>
+<li><p><code>tidyverse</code></p></li>
+<li><p><code>ggspatial</code></p></li>
+<li><p><code>rnaturalearth</code></p></li>
+<li><p><code>sf</code></p></li>
+<li><p><code>terra</code></p></li>
+<li><p><code>tidyterra</code></p></li>
+<li><p><code>Euclimatch</code></p></li>
+<li><p><code>GA</code></p></li>
+<li><p><code>cowplot</code></p></li>
+</ul>
 </div>
 <div id="instructions" class="section level3">
 <h3><strong>Instructions</strong></h3>
@@ -528,7 +533,7 @@ associated outputs.</li>
 <h2><strong>Acknowledgements</strong></h2>
 <p>This work was funded by the U.S. Department of Defense Strategic
 Environmental Research and Development Program (U.S. Army Corps of
-Engineers, contract no. <a href="https://demo.serdp-estcp.mil/projects/details/48787c60-7e33-4cda-bd02-5bc31b402265/managing-yellow-starthistle-using-a-new-biocontrol-agent-an-integrative-experimental-and-geo-climatic-modeling-approach">RC23-3611</a>.</p>
+Engineers, contract no. <a href="https://demo.serdp-estcp.mil/projects/details/48787c60-7e33-4cda-bd02-5bc31b402265/managing-yellow-starthistle-using-a-new-biocontrol-agent-an-integrative-experimental-and-geo-climatic-modeling-approach">RC23-3611</a>).</p>
 </div>
 <div id="references" class="section level2">
 <h2><strong>References</strong></h2>

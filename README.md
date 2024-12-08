@@ -11,7 +11,7 @@ Questions? 📧
 ## **Purpose**
 
 The code and files in this repository produce climate matching models
-for *Ceratapion basicorne* (Barker et al. 2025).
+for *Ceratapion basicorne* for the western U.S. (Barker et al. 2025).
 
 ## **Abstract**
 
@@ -120,14 +120,19 @@ A summary of these datasets is below:
 
 ## **Sharing/Access information**
 
-Data were derived from the following sources:\
-- [Daymet dataset for North America](https://daymet.ornl.gov/getdata)\
-- [E-OBS dataset for Europe](https://surfobs.climate.copernicus.eu)\
-- [SiTHv2 global soil moisture
-dataset](https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c)\
-- [EDDMapS database](https://www.eddmaps.org/)\
-- [GBIF \| Global Biodiversity Information
-Facility](https://www.gbif.org/)
+Data were derived from the following sources:
+
+-   [Daymet dataset for North America](https://daymet.ornl.gov/getdata)
+
+-   [E-OBS dataset for Europe](https://surfobs.climate.copernicus.eu)
+
+-   [SiTHv2 global soil moisture
+    dataset](https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c)
+
+-   [EDDMapS database](https://www.eddmaps.org/)
+
+-   [GBIF \| Global Biodiversity Information
+    Facility](https://www.gbif.org/)
 
 Citations for datasets can be found in the publication (Barker et al.
 2025)
@@ -138,17 +143,27 @@ The R statistical software (version 4.3.2) was used to produce models.
 
 ### **Required R packages**
 
-The following packages must be installed:\
-- `here`\
-- `tidyverse`\
-- `ggspatial`\
-- `rnaturalearth`\
-- `sf`\
-- `terra`\
-- `tidyterra`\
-- `Euclimatch`\
-- `GA`\
-- `cowplot`
+The following packages must be installed:
+
+-   `here`
+
+-   `tidyverse`
+
+-   `ggspatial`
+
+-   `rnaturalearth`
+
+-   `sf`
+
+-   `terra`
+
+-   `tidyterra`
+
+-   `Euclimatch`
+
+-   `GA`
+
+-   `cowplot`
 
 ### **Instructions**
 
@@ -165,7 +180,7 @@ The following packages must be installed:\
 This work was funded by the U.S. Department of Defense Strategic
 Environmental Research and Development Program (U.S. Army Corps of
 Engineers, contract no.
-[RC23-3611](https://demo.serdp-estcp.mil/projects/details/48787c60-7e33-4cda-bd02-5bc31b402265/managing-yellow-starthistle-using-a-new-biocontrol-agent-an-integrative-experimental-and-geo-climatic-modeling-approach).
+[RC23-3611](https://demo.serdp-estcp.mil/projects/details/48787c60-7e33-4cda-bd02-5bc31b402265/managing-yellow-starthistle-using-a-new-biocontrol-agent-an-integrative-experimental-and-geo-climatic-modeling-approach)).
 
 ## **References**
 

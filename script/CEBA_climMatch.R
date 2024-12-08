@@ -354,7 +354,7 @@ match_outs <- map(1:length(vars), function(i) {
     # Climatch algorithm
     matchout <- climatch_vec(
       recipient = away_bio, 
-      source = home_extr,
+      source = home_bio,
       globvar = unlist(globvar))
   } else {
     # Calculate global variance of recipient climate data 
