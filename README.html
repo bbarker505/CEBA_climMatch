@@ -397,19 +397,19 @@ requirements for development and survival.</p>
 <h3><strong>Subfolders</strong></h3>
 <p>The main folder (directory) contains the following subfolders:</p>
 <ul>
-<li><p><code>data</code>: all data needed for modeling (see descriptions
-below).</p></li>
-<li><p><code>plots</code>: image files (<code>.png</code> files)
-produced by models are saved here. Images produced by the CLIMEX-based
-model and Climatch models are saved to the <code>CLIMEX_custom</code>
-and <code>Climatch</code> folder, respectively.</p></li>
-<li><p><code>raster_outputs</code>: rasters (<code>.tif</code> files)
+<li><code>data</code>: all data needed for modeling (see descriptions
+below).</li>
+<li><code>plots</code>: image files (<code>.png</code> files) produced
+by models are saved here. Images produced by the CLIMEX-based model and
+Climatch models are saved to the <code>CLIMEX_custom</code> and
+<code>Climatch</code> folder, respectively.</li>
+<li><code>raster_outputs</code>: rasters (<code>.tif</code> files)
 produced by models are saved here. Rasters produced by the CLIMEX-based
 model and Climatch models are saved to the <code>CLIMEX_custom</code>
-and <code>Climatch</code> subfolder, respectively.</p></li>
-<li><p><code>script</code>: running the R script
+and <code>Climatch</code> subfolder, respectively.</li>
+<li><code>script</code>: running the R script
 <code>CEBA_climMatch.R</code> re-produces all models, figures, and
-rasters presented in the manuscript (see below).</p></li>
+rasters presented in the manuscript (see below).</li>
 </ul>
 </div>
 <div id="data" class="section level3">
@@ -430,20 +430,20 @@ moisture. Further details about the climatic data and variables used in
 models can be found in the publication for this study.</p>
 <p>A summary of these datasets is below:</p>
 <ul>
-<li><p><code>/data/weekly/home/kilkis.csv</code>: Data for the ‘home’
+<li><code>/data/weekly/home/kilkis.csv</code>: Data for the ‘home’
 location used for the CLIMEX-based model. The columns correspond to
 averages of weekly climate for Tmin, Tmax, and soil moisture (sm)
 (<code>52</code> weeks <code>x</code> <code>3</code> variables
 <code>=</code> <code>156</code> columns) (e.g., <code>ppt01</code> =
 precipitation of the first week of the year), as well as average annual
-total precipitation (mm) (<code>ppt_ann</code>).</p></li>
-<li><p><code>/data/weekly/away/*tif:</code> Data for the ‘away’
-locations used for CLIMEX-based models. There are <code>156</code>
-rasters corresponding to weekly estimates of Tmin, Tmax, and soil
-moisture (sm) (<code>52</code> weeks <code>x</code> <code>3</code>
-variables <code>=</code> <code>156</code> rasters), as well as an annual
-estimate of precipitation (<code>ppt_ann</code>).</p></li>
-<li><p><code>/data/bioclim/home/kilkis.csv</code>: Data for the ‘home’
+total precipitation (mm) (<code>ppt_ann</code>).</li>
+<li><code>/data/weekly/away/*tif:</code> Data for the ‘away’ locations
+used for CLIMEX-based models. There are <code>156</code> rasters
+corresponding to weekly estimates of Tmin, Tmax, and soil moisture (sm)
+(<code>52</code> weeks <code>x</code> <code>3</code> variables
+<code>=</code> <code>156</code> rasters), as well as an annual estimate
+of precipitation (<code>ppt_ann</code>).</li>
+<li><code>/data/bioclim/home/kilkis.csv</code>: Data for the ‘home’
 location used for the Climatch models. The columns correspond to
 bioclimatic variables derived from 30-year averages of climate. These
 included Tmax of the warmest month (<code>bio5</code>), Tmin of the
@@ -452,16 +452,16 @@ coldest month (<code>bio6</code>), annual precipitation
 (<code>bio29</code>), and lowest monthly soil moisture
 (<code>bio30</code>). The row corresponds to the source location for
 <em>C. basicorne</em> in Kilkis, Greece
-(<code>latitude = 22.844, longitude = 40.994</code>).</p></li>
-<li><p><code>/data/bioclim/away/*tif:</code> Data for ‘away’ locations
-used for Climatch models (same bioclimatic variables as the home
-location).</p></li>
-<li><p><code>/data/YST_counties/YST_counties_9-19-24.shp:</code>
-Geospatial vector data of counties in the western U.S. where yellow
-starthistle has been observed. Observations were obtained from the Early
-Detection and Distribution Mapping System (EDDMapS, 2024) and the Global
-Biodiversity Information Facility (GBIF.org, 2024). A single record was
-retained for each county, for a total of <code>182</code> records from
+(<code>latitude = 22.844, longitude = 40.994</code>).</li>
+<li><code>/data/bioclim/away/*tif:</code> Data for ‘away’ locations used
+for Climatch models (same bioclimatic variables as the home
+location).</li>
+<li><code>/data/YST_counties/YST_counties_9-19-24.shp:</code> Geospatial
+vector data of counties in the western U.S. where yellow starthistle has
+been observed. Observations were obtained from the Early Detection and
+Distribution Mapping System (EDDMapS, 2024) and the Global Biodiversity
+Information Facility (GBIF.org, 2024). A single record was retained for
+each county, for a total of <code>182</code> records from
 <code>11</code> states. The geometry type is a multipolygon (extent:
 <code>xmin = -125.0024, xmax = -101.9945,ymin = 31.18652, ymax = 49.40551</code>)
 and the coordinate reference system is NAD83. The columns include:
@@ -469,7 +469,7 @@ and the coordinate reference system is NAD83. The columns include:
 county FIPS code), <code>NAME</code> (county name),
 <code>geometry</code> (longitude, latitude), <code>n_number</code>
 (number of records), and <code>present</code> [if starthisle has been
-detected (present) or not (absent)].</p></li>
+detected (present) or not (absent)].</li>
 </ul>
 </div>
 </div>
@@ -498,16 +498,16 @@ models.</p>
 <h3><strong>Required R packages</strong></h3>
 <p>The following packages must be installed:</p>
 <ul>
-<li><p><code>here</code></p></li>
-<li><p><code>tidyverse</code></p></li>
-<li><p><code>ggspatial</code></p></li>
-<li><p><code>rnaturalearth</code></p></li>
-<li><p><code>sf</code></p></li>
-<li><p><code>terra</code></p></li>
-<li><p><code>tidyterra</code></p></li>
-<li><p><code>Euclimatch</code></p></li>
-<li><p><code>GA</code></p></li>
-<li><p><code>cowplot</code></p></li>
+<li><code>here</code></li>
+<li><code>tidyverse</code></li>
+<li><code>ggspatial</code></li>
+<li><code>rnaturalearth</code></li>
+<li><code>sf</code></li>
+<li><code>terra</code></li>
+<li><code>tidyterra</code></li>
+<li><code>Euclimatch</code></li>
+<li><code>GA</code></li>
+<li><code>cowplot</code></li>
 </ul>
 </div>
 <div id="instructions" class="section level3">

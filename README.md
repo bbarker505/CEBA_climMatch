@@ -46,17 +46,14 @@ development and survival.
 The main folder (directory) contains the following subfolders:
 
 -   `data`: all data needed for modeling (see descriptions below).
-
 -   `plots`: image files (`.png` files) produced by models are saved
     here. Images produced by the CLIMEX-based model and Climatch models
     are saved to the `CLIMEX_custom` and `Climatch` folder,
     respectively.
-
 -   `raster_outputs`: rasters (`.tif` files) produced by models are
     saved here. Rasters produced by the CLIMEX-based model and Climatch
     models are saved to the `CLIMEX_custom` and `Climatch` subfolder,
     respectively.
-
 -   `script`: running the R script `CEBA_climMatch.R` re-produces all
     models, figures, and rasters presented in the manuscript (see
     below).
@@ -85,13 +82,11 @@ A summary of these datasets is below:
     `x` `3` variables `=` `156` columns) (e.g., `ppt01` = precipitation
     of the first week of the year), as well as average annual total
     precipitation (mm) (`ppt_ann`).
-
 -   `/data/weekly/away/*tif:` Data for the 'away' locations used for
     CLIMEX-based models. There are `156` rasters corresponding to weekly
     estimates of Tmin, Tmax, and soil moisture (sm) (`52` weeks `x` `3`
     variables `=` `156` rasters), as well as an annual estimate of
     precipitation (`ppt_ann`).
-
 -   `/data/bioclim/home/kilkis.csv`: Data for the 'home' location used
     for the Climatch models. The columns correspond to bioclimatic
     variables derived from 30-year averages of climate. These included
@@ -100,10 +95,8 @@ A summary of these datasets is below:
     moisture (`bio29`), and lowest monthly soil moisture (`bio30`). The
     row corresponds to the source location for *C. basicorne* in Kilkis,
     Greece (`latitude = 22.844, longitude = 40.994`).
-
 -   `/data/bioclim/away/*tif:` Data for 'away' locations used for
     Climatch models (same bioclimatic variables as the home location).
-
 -   `/data/YST_counties/YST_counties_9-19-24.shp:` Geospatial vector
     data of counties in the western U.S. where yellow starthistle has
     been observed. Observations were obtained from the Early Detection
@@ -122,17 +115,13 @@ A summary of these datasets is below:
 
 Data were derived from the following sources:
 
--   [Daymet dataset for North America](https://daymet.ornl.gov/getdata)  
-
--   [E-OBS dataset for Europe](https://surfobs.climate.copernicus.eu)  
-
+-   [Daymet dataset for North America](https://daymet.ornl.gov/getdata)
+-   [E-OBS dataset for Europe](https://surfobs.climate.copernicus.eu)
 -   [SiTHv2 global soil moisture
-    dataset](https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c)  
-
--   [EDDMapS database](https://www.eddmaps.org/)  
-
+    dataset](https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c)
+-   [EDDMapS database](https://www.eddmaps.org/)
 -   [GBIF \| Global Biodiversity Information
-    Facility](https://www.gbif.org/)  
+    Facility](https://www.gbif.org/)
 
 Citations for datasets can be found in the publication (Barker et al.
 2025)
@@ -145,25 +134,16 @@ The R statistical software (version 4.3.2) was used to produce models.
 
 The following packages must be installed:
 
--   `here`  
-
--   `tidyverse`  
-
--   `ggspatial`  
-
--   `rnaturalearth`  
-
--   `sf`  
-
--   `terra`  
-
--   `tidyterra`  
-
--   `Euclimatch`  
-
--   `GA`  
-
--   `cowplot`  
+-   `here`
+-   `tidyverse`
+-   `ggspatial`
+-   `rnaturalearth`
+-   `sf`
+-   `terra`
+-   `tidyterra`
+-   `Euclimatch`
+-   `GA`
+-   `cowplot`
 
 ### **Instructions**
 
