@@ -122,17 +122,17 @@ A summary of these datasets is below:
 
 Data were derived from the following sources:
 
--   [Daymet dataset for North America](https://daymet.ornl.gov/getdata)
+-   [Daymet dataset for North America](https://daymet.ornl.gov/getdata)  
 
--   [E-OBS dataset for Europe](https://surfobs.climate.copernicus.eu)
+-   [E-OBS dataset for Europe](https://surfobs.climate.copernicus.eu)  
 
 -   [SiTHv2 global soil moisture
-    dataset](https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c)
+    dataset](https://data.tpdc.ac.cn/en/data/bc51e1b0-494c-4cd5-ae4d-eba6b9d2322c)  
 
--   [EDDMapS database](https://www.eddmaps.org/)
+-   [EDDMapS database](https://www.eddmaps.org/)  
 
 -   [GBIF \| Global Biodiversity Information
-    Facility](https://www.gbif.org/)
+    Facility](https://www.gbif.org/)  
 
 Citations for datasets can be found in the publication (Barker et al.
 2025)
@@ -145,25 +145,25 @@ The R statistical software (version 4.3.2) was used to produce models.
 
 The following packages must be installed:
 
--   `here`
+-   `here`  
 
--   `tidyverse`
+-   `tidyverse`  
 
--   `ggspatial`
+-   `ggspatial`  
 
--   `rnaturalearth`
+-   `rnaturalearth`  
 
--   `sf`
+-   `sf`  
 
--   `terra`
+-   `terra`  
 
--   `tidyterra`
+-   `tidyterra`  
 
--   `Euclimatch`
+-   `Euclimatch`  
 
--   `GA`
+-   `GA`  
 
--   `cowplot`
+-   `cowplot`  
 
 ### **Instructions**
 
