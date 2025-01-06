@@ -79,7 +79,7 @@ A summary of these datasets is below:
 -   `/data/weekly/home/kilkis.csv`: Data for the 'home' location used
     for the CLIMEX-based model. The columns correspond to averages of
     weekly climate for Tmin, Tmax, and soil moisture (sm) (`52` weeks
-    `x` `3` variables `=` `156` columns) (e.g., `ppt01` = precipitation
+    `x` `3` variables `=` `156` columns) (e.g., `tmin01` = minimum temperature
     of the first week of the year), as well as average annual total
     precipitation (mm) (`ppt_ann`).
 -   `/data/weekly/away/*tif:` Data for the 'away' locations used for
